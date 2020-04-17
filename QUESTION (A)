@@ -1,0 +1,31 @@
+#include<unistd.h> #include<stdio.h> #include<pthread.h> #include<sys/types.h> #include<sys/wait.h> #include<fcntl.h> #include<stdbool.h> void *func1();
+void *func2(); int turn;
+bool flag[2]; void main()
+{
+pthread_t t1,t2; pthread_create(&t1,NULL,func1,NULL); pthread_create(&t2,NULL,func2,NULL); pthread_join(t1,NULL); pthread_join(t2,NULL);
+printf("\nTask completed\n");
+}
+void *func1()
+{
+flag[0]=true;
+printf("Flag of P0 - True\n\n"); if(turn!=0 || flag[0]==false)
+{
+printf("process 0 in Waiting\n\n"); wait;
+turn=0; flag[0]=true;
+}
+printf("Process 0 executed\n\n\n");
+turn = 1; flag[0]=false;
+
+}
+void *func2()
+{
+
+flag[1]=true;
+printf("flag of p1 - True\n\n"); if(turn!=1 || flag[1]==false)
+{
+printf("process 1 in Waiting\n\n"); wait;
+turn=1; flag[1]=true;
+}
+printf("Process 1 executed\n\n\n");
+turn = 0; flag[1]=false;
+}
